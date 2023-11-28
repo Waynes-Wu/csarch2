@@ -1,0 +1,43 @@
+.info {
+    width: 100%;
+    background-color: lightblue;
+    height: 20vh;
+    /* 20% of the viewport height */
+}
+
+.content {
+    font-size: 0;
+    /* Remove inline-block space */
+}
+
+.left,
+.right {
+    width: 50%;
+    height: 50vh;
+    /* 50% of the viewport height */
+    display: inline-block;
+    font-size: 16px;
+    /* Reset font size */
+    box-sizing: border-box;
+    /* Include padding and border in the width */
+    vertical-align: top;
+    /* Align inline-blocks to the top */
+}
+
+/* .left {
+    background-color: gray;
+}
+
+.right {
+    background-color: beige;
+} */
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
