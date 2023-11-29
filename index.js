@@ -1,6 +1,7 @@
 const CACHE_BLOCK = 16
 const CACHE_LINE = 32
 var AVAILABLE_SPACE = CACHE_BLOCK
+let SEQCOUNTER = 0
 document.addEventListener('DOMContentLoaded', () => {
 
     const dataColumn = document.querySelectorAll('.left .data')
@@ -8,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.innerHTML = ''
     })
 
-    // edit right side
+    // put sequences in right side
     right_tbody = document.querySelector('.right tbody')
     let sequence = testcaseA()
     for (let index = 0; index < sequence.length; index++) {
@@ -20,22 +21,42 @@ document.addEventListener('DOMContentLoaded', () => {
             <td class="blockNumber"></td>
         </tr>
     `
-        
     }
-    // ! DEBUGING PART
 
+    // ! DEBUGING PART
+    
     // change block 4 into 1
     dataColumn[3].innerHTML = 1
-
-
-    // -------------------
-
-    const cacheArray = Array.from(dataColumn).map(el => el.innerHTML);
-    console.log(cacheArray)
-    let returnData = cachaAccess(1, cacheArray)
     
-    console.log(returnData.hit)
-    console.log(returnData.index)
+    // -------------------
+    
+    document.querySelector("#next").addEventListener('click', ()=>{
+        // array of cache
+        const cacheArray = Array.from(dataColumn).map(el => el.innerHTML);
+        console.log(cacheArray)
+        
+        let currentSeq = document.querySelectorAll('.right .sequence')[SEQCOUNTER].innerHTML;
+        let returnData = cachaAccess(currentSeq, cacheArray)
+        console.log(returnData.hit)
+        console.log(returnData.index)
+        
+        // 
+        document.querySelectorAll('.right .blockNumber')[SEQCOUNTER].innerHTML = returnData.index;
+        
+        // at cache memory [index] replace the data
+        dataColumn[returnData.index].innerHTML = currentSeq
+
+        if (returnData.hit == true)
+            document.querySelectorAll('.right .hit')[SEQCOUNTER].innerHTML = "&#10003";
+        else
+            document.querySelectorAll('.right .miss')[SEQCOUNTER].innerHTML = "&#10003";
+        // replace hit or no hit
+        
+        SEQCOUNTER += 1
+    })
+    
+
+    
 
     // replace right block with index
     // replace hit or no hit 
@@ -55,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 })
+
 
 //define functions here
 function getRndInteger(min, max) {
