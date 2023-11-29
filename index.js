@@ -8,6 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
         el.innerHTML = ''
     })
 
+    // edit right side
+    right_tbody = document.querySelector('.right tbody')
+    let sequence = testcaseA()
+    for (let index = 0; index < sequence.length; index++) {
+        right_tbody.innerHTML += `
+        <tr>
+            <td class="sequence">${sequence[index]}</td>
+            <td class="hit"></td>
+            <td class="miss"></td>
+            <td class="blockNumber"></td>
+        </tr>
+    `
+        
+    }
     // ! DEBUGING PART
 
     // change block 4 into 1
@@ -18,9 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cacheArray = Array.from(dataColumn).map(el => el.innerHTML);
     console.log(cacheArray)
-    let returnData = cachaAccess(2, cacheArray)
+    let returnData = cachaAccess(1, cacheArray)
+    
     console.log(returnData.hit)
     console.log(returnData.index)
+
+    // replace right block with index
+    // replace hit or no hit 
 
 
 
@@ -33,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     # memory blocks: user input 
     */
 
-    const sequence = []
+
 
 
 })
@@ -102,18 +120,23 @@ function testcaseA(){
     arayKo = []
     for (let index = 0; index < 4; index++) {
         // push [0 - 2*CACHE_BLOCK) to array
-        
+        for(let j = 0; j < 2*CACHE_BLOCK; j++){
+            arayKo.push(j)
+        }
     }
     return arayKo 
+}
 
 //Random sequence: 4n blocks (64)
-}
 function testcaseB(){
-    disarrayMe = []
+    ahrray = []
     return
 }
 
 //Mid-repeat blocks: start at block 0; 
+//repeat sequence in the middle 2 times up to n-1 blocks
+//then continue uup to 2n
+//EX: 
 function testcaseC(){
     scARRAY = []
     return scARRAY
