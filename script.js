@@ -27,11 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener for change in select element
     testCaseSelect.addEventListener('change', function () {
         // update in case there are changes made to forms
-        numberOfMemory = parseInt(document.querySelector('#memBlock').value)
         clearLeftData()
         if (this.value == 0) {
             // get data from textarea split 
-            sequence = customTextArea.value.split(',');
+            sequence = customTextArea.value.split(' ').map(value => parseInt(value));
+            console.log(sequence)
         } 
         else {
             let a = this.value 

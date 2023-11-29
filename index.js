@@ -21,37 +21,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const testCaseSelect = document.querySelector('select');
     const customTextArea = document.querySelector('textarea');
-    let sequence =  testcaseA();
+    let sequence = testcaseA();
     updateRightTable(sequence)
-    
+
 
     // Event listener for change in select element
     testCaseSelect.addEventListener('change', function () {
         // update in case there are changes made to forms
-        numberOfMemory = parseInt(document.querySelector('#memBlock').value)
-        
+        console.log(sequence)
         if (this.value == 0) {
             // get data from textarea split 
-            sequence = customTextArea.value.split(' ');
-        } 
+            sequence = customTextArea.value.split(' ').map(value => parseInt(value));
+        }
         else {
-            let a = this.value 
-            if (a == 1){
+            let a = this.value
+            if (a == 1) {
                 sequence = testcaseA()
             }
-            if (a == 2){
+            if (a == 2) {
                 sequence = testcaseB()
             }
-            if (a == 3){
+            if (a == 3) {
                 sequence = testcaseC()
             }
-
-            }
-            // ADD SEQUENCES TO THE TABLE
-            updateRightTable(sequence)
+        }
+        // ADD SEQUENCES TO THE TABLE
+        updateRightTable(sequence)
     });
 
-    
+
     //  ACTION FOR BUTTON
     document.querySelector("#next").addEventListener('click', () => {
 
@@ -73,21 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // at cache memory [index] replace the data
         dataColumn[returnData.index].innerHTML = currentSeq
 
-        if (returnData.hit == true){
+        if (returnData.hit == true) {
             document.querySelectorAll('.right .hit')[SEQCOUNTER].innerHTML = "&#10003";
             hitCount += 1
         }
-        else{
+        else {
             document.querySelectorAll('.right .miss')[SEQCOUNTER].innerHTML = "&#10003";
             missCount += 1
         }
-        
+
         accessCount += 1
         // index for accessing row in sequence
         SEQCOUNTER += 1
 
-        hitRate = hitCount/accessCount
-        missRate = missCount/accessCount
+        hitRate = hitCount / accessCount
+        missRate = missCount / accessCount
         let fetchDelay = parseInt(document.querySelector('#fetchDelay').value)
         let miss_penalty = (fetchDelay * CACHE_LINE) + 1
         aveAccessTime = (hitRate * 1) + missRate * miss_penalty
@@ -108,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-function updateRightTable(sequence){
+function updateRightTable(sequence) {
     SEQCOUNTER = 0
     right_tbody = document.querySelector('.right tbody')
     right_tbody.innerHTML = ``
@@ -210,16 +208,14 @@ function testcaseC() {
     scARRAY = []
     scARRAY.push(0)
     for (let j = 0; j < 2; j++) {
-        for (let i = 0; i < CACHE_BLOCK-1; i++) {
-            const scARRAY> i;
-        }        
+        for (let i = 0; i < CACHE_BLOCK - 1; i++) {
+            const scARRAY = i;
+        }
     }
-
-    scARRAY
     return scARRAY
 }
 
-function updateOutput(){
+function updateOutput() {
     let outputArr = document.querySelectorAll('ol span')
     outputArr[0].innerHTML = accessCount
     outputArr[1].innerHTML = hitCount
