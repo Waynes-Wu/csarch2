@@ -9,15 +9,15 @@ let accessCount = 0
 let missRate = 0
 let aveAccessTime = 0
 let totalAccessTime = 0
-let numberOfMemory;
+let numberOfMemory = parseInt(document.querySelector('#memBlock').value)
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    numberOfMemory =  parseInt(document.querySelector('#memBlock').value)
-    const dataColumn = document.querySelectorAll('.left .data')
-    
     // REMOVE ALL EXISTING DATA
-    clearLeftData()
+    const dataColumn = document.querySelectorAll('.left .data')
+    dataColumn.forEach(el => {
+        el.innerHTML = ''
+    })
 
     const testCaseSelect = document.querySelector('select');
     const customTextArea = document.querySelector('textarea');
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     testCaseSelect.addEventListener('change', function () {
         // update in case there are changes made to forms
         numberOfMemory = parseInt(document.querySelector('#memBlock').value)
-        clearLeftData()
+        
         if (this.value == 0) {
             // get data from textarea split 
             sequence = customTextArea.value.split(' ');
@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (a == 3){
                 sequence = testcaseC()
             }
+
             }
             // ADD SEQUENCES TO THE TABLE
             updateRightTable(sequence)
@@ -95,18 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // apply changes
         updateOutput()
     })
-
-    document.querySelector('#ffwButton').addEventListener('click', ()=>{
-        // if clicked press the button 100 times
-        const button = document.querySelector("#next")
-        for (let i = 0; i < 100; i++) {
-            button.click()
-        }
-    })
-    
-
-
-
 
     //type of cacha thing: FA, random replacement data
     /*
@@ -169,6 +158,7 @@ function cachaAccess(input, cachearray) {
             returnIndex = nearestOpenSpace
         }
     }
+
     return {
         hit: hit,
         index: returnIndex
@@ -190,12 +180,7 @@ function cachaAccess(input, cachearray) {
     (n-1) - 2n
 */
 
-function clearLeftData(){
-    const dataColumn = document.querySelectorAll('.left .data')
-    dataColumn.forEach(el => {
-        el.innerHTML = ''
-    })
-}
+
 //Sequential sequence up to 2n cache blocks(32). repeat sequence 4 times
 function testcaseA() {
     arayKo = []
@@ -219,21 +204,18 @@ function testcaseB() {
 
 //Mid-repeat blocks: start at block 0; 
 //repeat sequence in the middle 2 times up to n-1 blocks
-//then continue up to 2n
+//then continue uup to 2n
+//EX: 
 function testcaseC() {
     scARRAY = []
-
     scARRAY.push(0)
-
     for (let j = 0; j < 2; j++) {
-        for (let i = 1; i < CACHE_BLOCK-1; i++) {
-            scARRAY.push(i);
+        for (let i = 0; i < CACHE_BLOCK-1; i++) {
+            const scARRAY> i;
         }        
     }
 
-    for (let i = CACHE_BLOCK -1; i < 2 * CACHE_BLOCK; i++) {
-        scARRAY.push(i);
-    }
+    scARRAY
     return scARRAY
 }
 
@@ -242,8 +224,8 @@ function updateOutput(){
     outputArr[0].innerHTML = accessCount
     outputArr[1].innerHTML = hitCount
     outputArr[2].innerHTML = missCount
-    outputArr[3].innerHTML = `${Math.round(hitRate * 10000)/100}%`
-    outputArr[4].innerHTML = `${Math.round(missRate * 10000)/100}%`
+    outputArr[3].innerHTML = hitRate
+    outputArr[4].innerHTML = missRate
     outputArr[5].innerHTML = aveAccessTime
     outputArr[6].innerHTML = totalAccessTime
 }

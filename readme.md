@@ -7,7 +7,7 @@ Description~~~~
 ## Authors
 **GROUP 1 | S13**
 - Co Chiong, Shawn
-- Sia, Chantal Hyacynth
+- [Sia, Chantal Hyacynth](https://github.com/AisuChantal)
 - [Veron, Ana Muriel](https://github.com/anamurielveron)
 - [Wu, Waynes Weyner](https://github.com/Waynes-Wu)
 
