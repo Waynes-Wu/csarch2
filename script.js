@@ -1,11 +1,10 @@
 const CACHE_BLOCK = 16
 const CACHE_LINE = 32
 let SEQCOUNTER = 0
-let memoryAccessCount = 0
+let accessCount = 0
 let hitCount = 0
 let missCount = 0
 let hitRate = 0
-let accessCount = 0
 let missRate = 0
 let aveAccessTime = 0
 let totalAccessTime = 0
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearLeftData()
         if (this.value == 0) {
             // get data from textarea split 
-            sequence = customTextArea.value.split(' ');
+            sequence = customTextArea.value.split(',');
         } 
         else {
             let a = this.value 
@@ -45,13 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (a == 3){
                 sequence = testcaseC()
             }
-            }
+        }
             // ADD SEQUENCES TO THE TABLE
             updateRightTable(sequence)
+            //reset when seuence is changed
+            const button = document.querySelector("#reset")
+            button.click()
     });
 
     
-    //  ACTION FOR BUTTON
+    //  STEP-BY-STEP NEXT BUTTON
     document.querySelector("#next").addEventListener('click', () => {
 
         if (SEQCOUNTER == sequence.length)
@@ -90,12 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let fetchDelay = parseInt(document.querySelector('#fetchDelay').value)
         let miss_penalty = (fetchDelay * CACHE_LINE) + 1
         aveAccessTime = (hitRate * 1) + missRate * miss_penalty
-        totalAccessTime = (accessCount * aveAccessTime)
+        totalAccessTime = (hitCount * CACHE_LINE) + missCount * (1+(CACHE_LINE*fetchDelay))
 
         // apply changes
         updateOutput()
     })
 
+    // FAST FORWARD BUTTON (100 STEPS)
     document.querySelector('#ffwButton').addEventListener('click', ()=>{
         // if clicked press the button 100 times
         const button = document.querySelector("#next")
@@ -103,10 +106,25 @@ document.addEventListener('DOMContentLoaded', () => {
             button.click()
         }
     })
-    
 
-
-
+    // RESET BUTTON
+    document.querySelector('#reset').addEventListener('click', () => {
+        // reset all values
+        SEQCOUNTER = 0
+        accessCount = 0
+        hitCount = 0
+        missCount = 0
+        hitRate = 0
+        missRate = 0
+        aveAccessTime = 0
+        totalAccessTime = 0
+        // reset output
+        updateOutput()
+        // reset right table
+        updateRightTable(sequence)
+        // reset left table
+        clearLeftData()
+    })
 
     //type of cacha thing: FA, random replacement data
     /*
@@ -116,8 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
     # memory blocks: user input 
     */
 })
-
-
 
 function updateRightTable(sequence){
     SEQCOUNTER = 0
