@@ -2,6 +2,8 @@
 A cache simulation web application made as part of the requirements for __CSARCH2__.
 Description~~~~
 
+Walkthrough Video: https://youtu.be/tk8743Va6NA 
+
 **Cache Memory Type:** FA + Random replacement algorithm
 
 ## Authors
